@@ -1,0 +1,16 @@
+{
+    "name": "Dashboard",
+    "description": "Personal Dashboard",
+    "version": "0.1",
+    "incognito": "split",
+    "chrome_url_overrides": {
+      "newtab": "index.html"
+    },
+    "icons": {
+      "512": "img/dashboard.png"
+    },
+    "browser_action": {
+      "default_icon": "img/dashboard.png"
+    },
+    "manifest_version": 2
+  }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="container-fluid content">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="left-col">
+                    <div class="weather">
+                        <h3></h3>
+                        <ul></ul>
+                    </div>
+                    <div class="content-data" data-scrollbar="">
+                        <div class="news-feed d-none">
+                            <div class="feed-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="middle-col">
+                    <div class="searchbox">
+                        <form class="search-form">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary dropdown-toggle input-group-button" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="icon"></span>
+                                    </button>
+                                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;"></div>
+                                </div>
+                                <input type="text" name="search" class="form-control" autofocus>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="content-data" data-scrollbar=""></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="right-col">
+                    <h3 class="date">&nbsp;</h3>
+                    <div class="time">&nbsp;</div>
+                    <div class="content-data" data-scrollbar="">
+                        <div class="shower-thoughts">
+                            <h3><a href="https://www.reddit.com/r/Showerthoughts/"></a></h3>
+                            <ul></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-image"></div>
+    <script src="js/jquery.js"></script>
+    <script src="assets/smooth-scrollbar/dist/smooth-scrollbar.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/loader.js"></script>
+</body>
+</html>

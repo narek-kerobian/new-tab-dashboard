@@ -1,0 +1,9 @@
+@import 'variables';
+
+.scrollbar-track-x,
+.scrollbar-track-y {
+  border-radius: 10px;
+}
+.scrollbar-track {
+  background: $color-scroll-track-background !important;
+}
