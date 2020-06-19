@@ -9,8 +9,8 @@ export class Search {
     controlSearchSelectorDefault;
     controlSearchSelectorToggle;
 
-    constructor(engines) {
-        this.engines = engines;
+    constructor() 
+    {
         this.controlSearchForm = document.querySelector('form.search-form');
         this.controlSearch = document.querySelector('input[name="search"]');
         this.controlSearchSelectorContainer = this.controlSearchForm.querySelector('.input-group-prepend');
@@ -18,8 +18,9 @@ export class Search {
         this.controlSearchSelectorToggle = this.controlSearchSelectorContainer.querySelector('.dropdown-menu');
     }
 
-    init()
+    init(engines)
     {
+        this.engines = engines;
         // Set default engine
         this._setDefaultEngine(this.engines[0]);
         // Set search engine list

@@ -5,7 +5,10 @@ import Locale from "./i18n/locale.js";
 let locale = new Locale();
 locale.getLocale(config['locale'])
     .then(loc => {
-        let page = new Page(config, loc);
+        document.config = config;
+        document.locale = loc;
+
+        let page = new Page();
         page.Init();
     })
     .catch(err => console.log(err))

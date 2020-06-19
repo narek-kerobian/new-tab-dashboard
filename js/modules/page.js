@@ -1,4 +1,5 @@
 import Search from "./search.js";
+import Feed from "./feed.js";
 
 export class Page {
 
@@ -30,9 +31,10 @@ export class Page {
     unsplashKeywords;
     unsplashUpdateDaily;
 
-    constructor(config, locale) {
-        this.locale = locale;
-        this.config = config;
+    constructor()
+    {
+        this.locale = document.locale;
+        this.config = document.config;
 
         this.body = document.body;
         this.bgImage = document.querySelector('.bg-image');
@@ -64,22 +66,35 @@ export class Page {
         this.controlTimeInterval = setInterval(() => {
             this.updateTime();
         }, 10000);
-        this._initSearchEngines(this.config['search_engines']);
+        this._initSearchEngines();
+        this._initFeeds();
 
         this.updateBackground(() => {});
         this.updateTime();
-        this.getWeather();
+        // this.getWeather();
 
-        this.getNews();
         this.getShowerThoughts();
-
         this.initScrollbars();
     }
 
     _initSearchEngines(engines)
     {
-        let search = new Search(engines);
-        search.init();
+        if(typeof this.config['search_engines'] !== 'undefined') {
+            if(this.config['search_engines'].length > 0) {
+                let search = new Search();
+                search.init(this.config['search_engines']);
+            }
+        }
+    }
+
+    _initFeeds(feeds)
+    {
+        if(typeof this.config['rss_feed'] !== 'undefined') {
+            if(this.config['rss_feed']['feeds'].length !== 0) {
+                let feed = new Feed();
+                feed.Init(this.config['rss_feed']);
+            }
+        }
     }
 
     updateBackground(onload)
@@ -180,57 +195,6 @@ export class Page {
                 this.controlWeather.innerHTML = params;
             })
             .catch(err => console.log(err))
-    }
-
-    getNews()
-    {
-        if(typeof this.config['rss_feed'] !== 'undefined') {
-            if(this.config['rss_feed']['feeds'].length !== 0) {
-
-                let feedRand = this.config['rss_feed']['feeds'][Math.floor(Math.random() * this.config['rss_feed']['feeds'].length)];
-                this.parseFeed(feedRand['feed'], 'item')
-                    .then(items => {
-                        if(items.length > 0) {
-                            let feedItem = document.createElement('div');
-                            feedItem.classList.add('feed')
-
-                            let feedTitle = document.createElement('h3');
-                            feedTitle.classList.add('feed-title')
-                            feedTitle.innerHTML = `<a href="${feedRand['url']}">${feedRand['title']}</a>`
-
-                            let feedList = document.createElement('ul');
-
-                            items.forEach((item, index) => {
-                                if((index + 1) <= this.config['rss_feed']['items_per_feed']) {
-                                    let title = item.querySelector('title');
-                                    let link = item.querySelector('link');
-                                    let date = item.querySelector('pubDate');
-
-				                    let dateTime = new Date(date.innerHTML);
-                                    let hours = (dateTime.getHours() < 10) ? `0${dateTime.getHours()}` : dateTime.getHours();
-                                    let minutes = (dateTime.getMinutes() < 10) ? `0${dateTime.getMinutes()}` : dateTime.getMinutes();
-
-                                    let dateNum = (dateTime.getDate() < 10) ? `0${dateTime.getDate()}` : dateTime.getDate();
-                                    let month = this.locale.months[dateTime.getMonth()];
-
-                                    let feedItem = document.createElement('li');
-                                    feedItem.innerHTML = `
-                                        <a class="title" href="${link.innerHTML}">${title.innerHTML}</a>
-                                        <span class="date">${hours}:${minutes} | ${this.locale.weekDays[dateTime.getDay()]}, ${month} ${dateNum}</span>
-                                    `;
-                                    feedList.appendChild(feedItem);
-                                }
-                            })
-
-                            feedItem.appendChild(feedTitle);
-                            feedItem.appendChild(feedList);
-
-                            this.newsFeedList.appendChild(feedItem)
-                            this.newsFeedContainer.classList.remove('d-none')
-                        }
-                    })
-            }
-        }
     }
 
     getShowerThoughts()
