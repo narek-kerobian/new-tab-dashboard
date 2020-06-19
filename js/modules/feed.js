@@ -8,12 +8,14 @@ export class Feed {
     _dataFeeds;
 
     _controlNewsFeedContainer;
+    _controlNewsFeedSelector;
     _controlNewsFeedList
 
     constructor()
     {
         this._parser = new Parser();
         this._controlNewsFeedContainer = document.querySelector('.news-feed');
+        this._controlNewsFeedSelector = this._controlNewsFeedContainer.querySelector('.feed-selector');
         this._controlNewsFeedList = this._controlNewsFeedContainer.querySelector('.feed-list');
     }
 
@@ -21,22 +23,27 @@ export class Feed {
     {
         this._dataItemsPerFeed = feeds['items_per_feed'];
         this._dataFeeds = feeds['feeds'];
-        this._readFeeds();
+        this._setFeedSelectors();
+        this._eventFeedSelector();
+        this._readFeeds(0);
     }
 
-    _readFeeds()
+    _setFeedSelectors()
     {
-        let feedRand = this._dataFeeds[Math.floor(Math.random() * this._dataFeeds.length)];
-        this._parser.ParseFeed(feedRand['feed'], 'item')
+        this._dataFeeds.forEach((feed, index) => {
+            let option = document.createElement('option');
+            option.value = index;
+            option.innerHTML = feed['title'];
+            this._controlNewsFeedSelector.appendChild(option);
+        })
+    }
+
+    _readFeeds(feedIndex)
+    {
+        let feedSelected = this._dataFeeds[feedIndex];
+        this._parser.ParseFeed(feedSelected['feed'], 'item')
             .then(items => {
                 if(items.length > 0) {
-                    let feedItem = document.createElement('div');
-                    feedItem.classList.add('feed')
-
-                    let feedTitle = document.createElement('h3');
-                    feedTitle.classList.add('feed-title')
-                    feedTitle.innerHTML = `<a href="${feedRand['url']}">${feedRand['title']}</a>`
-
                     let feedList = document.createElement('ul');
 
                     items.forEach((item, index) => {
@@ -61,13 +68,17 @@ export class Feed {
                         }
                     })
 
-                    feedItem.appendChild(feedTitle);
-                    feedItem.appendChild(feedList);
-
-                    this._controlNewsFeedList.appendChild(feedItem)
-                    this._controlNewsFeedContainer.classList.remove('d-none')
+                    this._controlNewsFeedList.innerHTML = "";
+                    this._controlNewsFeedList.appendChild(feedList)
                 }
             })
+    }
+
+    _eventFeedSelector()
+    {
+        this._controlNewsFeedSelector.addEventListener('change', e => {
+            this._readFeeds(this._controlNewsFeedSelector.value);
+        })   
     }
 
 }

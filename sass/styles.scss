@@ -29,9 +29,6 @@ body {
     flex-direction: column;
     justify-content: left;
     height: calc(100vh - 80px);
-    .content-data {
-      padding-left: 15px;
-    }
     .weather {
       height: 185px;
       min-height: 185px;
@@ -60,32 +57,36 @@ body {
     }
     .news-feed {
       width: 75%;
-      .news-feed-title {
-        margin-bottom: 20px;
+      .feed-selector {
+        margin: 0;
+        padding: 0;
+        background: none;
+        border: none;
+        outline: none;
+        font-size: 28px;
+        color: $color_white;
+        option {
+          font-size: 16px;
+          color: #000;
+        }
       }
       .feed-list {
-        .feed {
-          h3 {
-            &.feed-title {
-              a {
-                color: $color_text;
-              }
+        padding-left: 15px;
+        height: 100%;
+        overflow: hidden;
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          li {
+            margin-bottom: 15px;
+            .title, .date {
+              display: block;
+              color: $color_text;
             }
-          }
-          ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            li {
-              margin-bottom: 15px;
-              .title, .date {
-                display: block;
-                color: $color_text;
-              }
-              .date {
-                font-size: 14px;
-                color: $color-feed-date;
-              }
+            .date {
+              font-size: 14px;
+              color: $color-feed-date;
             }
           }
         }
