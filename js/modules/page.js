@@ -13,8 +13,8 @@ export class Page {
     newsFeedContainer;
     newsFeedList;
 
-    showerThoughtsTitle;
-    showerThoughtsList;
+    redditTitle;
+    redditList;
 
     controlTime;
     controlDate;
@@ -38,8 +38,8 @@ export class Page {
         this.newsFeedContainer = document.querySelector('.news-feed');
         this.newsFeedList = this.newsFeedContainer.querySelector('.feed-list');
 
-        this.showerThoughtsTitle = document.querySelector('.shower-thoughts h3 a');
-        this.showerThoughtsList = document.querySelector('.shower-thoughts ul');
+        this.redditTitle = document.querySelector('.reddit h3 a');
+        this.redditList = document.querySelector('.reddit ul');
 
         this.controlTime = document.querySelector('.right-col .time');
         this.controlDate = document.querySelector('.right-col .date');
@@ -62,7 +62,6 @@ export class Page {
         // this.getWeather();
 
         this.getShowerThoughts();
-        this.initScrollbars();
     }
 
     _initSearchEngines(engines)
@@ -90,7 +89,7 @@ export class Page {
         if(typeof document.config['rss_feed'] !== 'undefined') {
             if(document.config['rss_feed']['feeds'].length !== 0) {
                 let feed = new Feed();
-                feed.Init(document.config['rss_feed']);
+                feed.Init();
             }
         }
     }
@@ -140,31 +139,11 @@ export class Page {
                     }
                 })
 
-                this.showerThoughtsTitle.innerText = 'Shower Thoughts';
-                this.showerThoughtsList.innerHTML = content;
-
+                this.redditTitle.innerText = 'Shower Thoughts';
+                this.redditList.innerHTML = content;
+                $('.bbb').jScrollPane();
             })
             .catch(err => console.log(err))
-    }
-
-    initScrollbars()
-    {
-        let scrollbar = window.Scrollbar;
-
-        let scrollbarOptions = {
-            damping: 20,
-            thumbMinSize: 20,
-            renderByPixels: true,
-            alwaysShowTracks: true,
-            continuousScrolling: true,
-        }
-
-        scrollbar.initAll(scrollbarOptions);
-        let scrollbars = scrollbar.getAll();
-        console.log(scrollbars);
-        
-        // Move left scrollbar to right
-        scrollbars[0].track.yAxis.element.style.left = 0;
     }
 
     parseFeed(feedUrl, queryTag)

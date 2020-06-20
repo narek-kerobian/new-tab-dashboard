@@ -1,9 +1,21 @@
 @import 'variables';
 
-.scrollbar-track-x,
-.scrollbar-track-y {
-  border-radius: 10px;
-}
-.scrollbar-track {
-  background: $color-scroll-track-background !important;
+.jspScrollable {
+  &.scrollbar-left {
+    .jspVerticalBar {
+      left: 0;
+    }
+  }
+  .jspVerticalBar {
+    width: 12px;
+    background: none;
+    .jspTrack {
+      border-radius: 50px;
+      background: $color-scroll-track-background;
+      .jspDrag {
+        border-radius: 50px;
+        background: $color-scroll-drag-background;      
+      }
+    }
+  }
 }

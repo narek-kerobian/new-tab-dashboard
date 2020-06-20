@@ -11,18 +11,21 @@ export class Feed {
     _controlNewsFeedSelector;
     _controlNewsFeedList
 
+    _controlScrollElement;
+
     constructor()
     {
         this._parser = new Parser();
         this._controlNewsFeedContainer = document.querySelector('.news-feed');
         this._controlNewsFeedSelector = this._controlNewsFeedContainer.querySelector('.feed-selector');
-        this._controlNewsFeedList = this._controlNewsFeedContainer.querySelector('.feed-list');
+        this._controlNewsFeedList = this._controlNewsFeedContainer.querySelector('.feed-list ul');
+        this._controlScrollElement = $('.feed-list');
     }
 
-    Init(feeds)
+    Init()
     {
-        this._dataItemsPerFeed = feeds['items_per_feed'];
-        this._dataFeeds = feeds['feeds'];
+        this._dataItemsPerFeed = document.config['rss_feed']['items_per_feed'];
+        this._dataFeeds = document.config['rss_feed']['feeds'];
         this._setFeedSelectors();
         this._eventFeedSelector();
         this._readFeeds(0);
@@ -44,7 +47,7 @@ export class Feed {
         this._parser.ParseFeed(feedSelected['feed'], 'item')
             .then(items => {
                 if(items.length > 0) {
-                    let feedList = document.createElement('ul');
+                    this._controlNewsFeedList.innerHTML = "";
 
                     items.forEach((item, index) => {
                         if((index + 1) <= this._dataItemsPerFeed) {
@@ -64,12 +67,10 @@ export class Feed {
                                 <a class="title" href="${link.innerHTML}">${title.innerHTML}</a>
                                 <span class="date">${hours}:${minutes} | ${document.locale.weekDays[dateTime.getDay()]}, ${month} ${dateNum}</span>
                             `;
-                            feedList.appendChild(feedItem);
+                            this._controlNewsFeedList.appendChild(feedItem)
                         }
                     })
-
-                    this._controlNewsFeedList.innerHTML = "";
-                    this._controlNewsFeedList.appendChild(feedList)
+                    this._initScroll();
                 }
             })
     }
@@ -79,6 +80,19 @@ export class Feed {
         this._controlNewsFeedSelector.addEventListener('change', e => {
             this._readFeeds(this._controlNewsFeedSelector.value);
         })   
+    }
+
+    _initScroll()
+    {
+        // Check if jScrollPane is attached
+        let scrollData = this._controlScrollElement.data('jsp');
+        if(typeof scrollData !== 'undefined') {
+            scrollData.reinitialise();
+        } else {
+            this._controlScrollElement = this._controlScrollElement.jScrollPane({
+                autoReinitialise: true
+            });
+        }
     }
 
 }

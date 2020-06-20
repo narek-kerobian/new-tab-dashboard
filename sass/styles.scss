@@ -57,6 +57,7 @@ body {
     }
     .news-feed {
       width: 75%;
+      height: 100%;
       .feed-selector {
         margin: 0;
         padding: 0;
@@ -71,9 +72,7 @@ body {
         }
       }
       .feed-list {
-        padding-left: 15px;
-        height: 100%;
-        overflow: hidden;
+        height: calc(100% - 60px);
         ul {
           margin: 0;
           padding: 0;
@@ -174,7 +173,7 @@ body {
       font-size: 32px;
       text-align: right;
     }
-    .shower-thoughts {
+    .reddit {
       float: right;
       width: 70%;
       h3 {
