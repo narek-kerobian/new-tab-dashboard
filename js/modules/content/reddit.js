@@ -5,9 +5,10 @@ export class Reddit {
 
     _parser;
 
+    _dataItemsPerFeed;
+
     _controlRedditTitle;
     _controlRedditList;
-
     _controlScrollElement;
 
     constructor()
@@ -20,6 +21,7 @@ export class Reddit {
 
     Init()
     {
+        this._dataItemsPerFeed = document.config['shower_thoughts']['items_per_feed'];
         this._getShowerThoughts();
     }
 
@@ -28,18 +30,22 @@ export class Reddit {
         this._parser.ParseFeed(document.config['shower_thoughts']['feed'], 'entry')
             .then(items => {
                 let content = ``;
-                items.forEach((item, index) => {
-                    if((index+1) <= document.config['shower_thoughts']['items_per_feed']) {
-                        let title = item.querySelector('title');
-                        let link = item.querySelector('link');
-                        let thought = `
+
+                for (let i = 0; i < items.length; i++) {
+                    if(this._dataItemsPerFeed) {
+                        if((i + 1) > this._dataItemsPerFeed) {
+                            break;
+                        }
+                    }
+                    let title = items[i].querySelector('title');
+                    let link = items[i].querySelector('link');
+                    let thought = `
                             <li>
                                 <a href="${link.getAttribute('href')}">${title.textContent}</a>
                             </li>
                         `;
-                        content += thought;
-                    }
-                })
+                    content += thought;
+                }
 
                 this._controlRedditTitle.innerText = 'Shower Thoughts';
                 this._controlRedditList.innerHTML = content;
