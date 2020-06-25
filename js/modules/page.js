@@ -132,7 +132,7 @@ export class Page {
                         let link = item.querySelector('link');
                         let thought = `
                             <li>
-                                <a href="${link.getAttribute('href')}">${title.innerHTML}</a>
+                                <a href="${link.getAttribute('href')}">${title.textContent}</a>
                             </li>
                         `;
                         content += thought;

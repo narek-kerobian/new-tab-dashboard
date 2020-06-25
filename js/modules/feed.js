@@ -64,7 +64,7 @@ export class Feed {
 
                             let feedItem = document.createElement('li');
                             feedItem.innerHTML = `
-                                <a class="title" href="${link.innerHTML}">${title.innerHTML}</a>
+                                <a class="title" href="${link.innerHTML}">${title.textContent}</a>
                                 <span class="date">${hours}:${minutes} | ${document.locale.weekDays[dateTime.getDay()]}, ${month} ${dateNum}</span>
                             `;
                             this._controlNewsFeedList.appendChild(feedItem)
