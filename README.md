@@ -14,7 +14,7 @@ A simple chrome extension aimed to make the new tab screen less dull by adding n
     "keywords": [""]
 }</code></pre>
 4. Add feed sources to the "rss_feed" section as shown below: <pre><code>"rss_feed": {
-    "items_per_feed": 9,
+    "items_per_feed": null,
     "feeds": [
         {
             "title": "RSS source #1",
@@ -28,7 +28,8 @@ A simple chrome extension aimed to make the new tab screen less dull by adding n
         }
     ]
 }</code></pre> 
-You can add as many feeds as you like, a random source would be selected on each page load.
+If you want to limit the number of articles change the value of "items_per_feed" to any number.  
+You can add as many feeds as you like, use dropdown menu to change the source.
 5. As a workaround to CORS problem, use "proxy_server" config option to specify a server like: https://cors-anywhere.herokuapp.com/
 6. Modify search engines section to your liking <pre><code>"search_engines": [
    {
