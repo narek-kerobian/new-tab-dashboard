@@ -24,7 +24,7 @@ export default {
         }
     ],
 	"rss_feed": {
-        "items_per_feed": 5,
+        "items_per_feed": null,
         "feeds": []
 	},
 	"shower_thoughts": {

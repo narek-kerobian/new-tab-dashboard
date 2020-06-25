@@ -49,27 +49,35 @@ export class Feed {
                 if(items.length > 0) {
                     this._controlNewsFeedList.innerHTML = "";
 
-                    items.forEach((item, index) => {
-                        if((index + 1) <= this._dataItemsPerFeed) {
-                            let title = item.querySelector('title');
-                            let link = item.querySelector('link');
-                            let date = item.querySelector('pubDate');
+                    if(this._dataItemsPerFeed) {
+                        console.log('Hi')
+                    }
 
-                            let dateTime = new Date(date.innerHTML);
-                            let hours = (dateTime.getHours() < 10) ? `0${dateTime.getHours()}` : dateTime.getHours();
-                            let minutes = (dateTime.getMinutes() < 10) ? `0${dateTime.getMinutes()}` : dateTime.getMinutes();
+                    for (let i = 0; i < items.length; i++) {
 
-                            let dateNum = (dateTime.getDate() < 10) ? `0${dateTime.getDate()}` : dateTime.getDate();
-                            let month = document.locale.months[dateTime.getMonth()];
-
-                            let feedItem = document.createElement('li');
-                            feedItem.innerHTML = `
-                                <a class="title" href="${link.innerHTML}">${title.textContent}</a>
-                                <span class="date">${hours}:${minutes} | ${document.locale.weekDays[dateTime.getDay()]}, ${month} ${dateNum}</span>
-                            `;
-                            this._controlNewsFeedList.appendChild(feedItem)
+                        if(this._dataItemsPerFeed) {
+                            if((i + 1) > this._dataItemsPerFeed) {
+                                break;
+                            }
                         }
-                    })
+                        let title = items[i].querySelector('title');
+                        let link = items[i].querySelector('link');
+                        let date = items[i].querySelector('pubDate');
+
+                        let dateTime = new Date(date.innerHTML);
+                        let hours = (dateTime.getHours() < 10) ? `0${dateTime.getHours()}` : dateTime.getHours();
+                        let minutes = (dateTime.getMinutes() < 10) ? `0${dateTime.getMinutes()}` : dateTime.getMinutes();
+
+                        let dateNum = (dateTime.getDate() < 10) ? `0${dateTime.getDate()}` : dateTime.getDate();
+                        let month = document.locale.months[dateTime.getMonth()];
+
+                        let feedItem = document.createElement('li');
+                        feedItem.innerHTML = `
+                            <a class="title" href="${link.innerHTML}">${title.textContent}</a>
+                            <span class="date">${hours}:${minutes} | ${document.locale.weekDays[dateTime.getDay()]}, ${month} ${dateNum}</span>
+                        `;
+                        this._controlNewsFeedList.appendChild(feedItem)
+                    }
                     this._initScroll();
                 }
             })
