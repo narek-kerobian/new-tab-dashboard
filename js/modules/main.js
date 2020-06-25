@@ -1,8 +1,9 @@
-import Search from "./search.js";
-import Weather from "./weather.js";
-import Feed from "./feed.js";
+import Search from "./content/search.js";
+import Weather from "./content/weather.js";
+import Feed from "./content/feed.js";
+import Reddit from "./content/reddit.js";
 
-export class Page {
+export class Main {
 
     body;
     bgImage;
@@ -13,16 +14,10 @@ export class Page {
     newsFeedContainer;
     newsFeedList;
 
-    redditTitle;
-    redditList;
-
     controlTime;
     controlDate;
 
     controlTimeInterval;
-
-    weatherKey;
-    weatherCityId;
 
     unsplashKeywords;
     unsplashUpdateDaily;
@@ -37,9 +32,6 @@ export class Page {
 
         this.newsFeedContainer = document.querySelector('.news-feed');
         this.newsFeedList = this.newsFeedContainer.querySelector('.feed-list');
-
-        this.redditTitle = document.querySelector('.reddit h3 a');
-        this.redditList = document.querySelector('.reddit ul');
 
         this.controlTime = document.querySelector('.right-col .time');
         this.controlDate = document.querySelector('.right-col .date');
@@ -56,12 +48,10 @@ export class Page {
         this._initSearchEngines();
         this._initWeather();
         this._initFeeds();
+        this._initReddit();
 
         this.updateBackground(() => {});
         this.updateTime();
-        // this.getWeather();
-
-        this.getShowerThoughts();
     }
 
     _initSearchEngines(engines)
@@ -84,13 +74,21 @@ export class Page {
         }
     }
 
-    _initFeeds(feeds)
+    _initFeeds()
     {
         if(typeof document.config['rss_feed'] !== 'undefined') {
             if(document.config['rss_feed']['feeds'].length !== 0) {
                 let feed = new Feed();
                 feed.Init();
             }
+        }
+    }
+
+    _initReddit()
+    {
+        if(typeof document.config['shower_thoughts'] !== 'undefined') {
+            let reddit = new Reddit();
+            reddit.Init();
         }
     }
 
@@ -121,52 +119,6 @@ export class Page {
         this.controlDate.innerText = `${document.locale.weekDays[now.getDay()]}, ${month} ${date}`;
     }
 
-    getShowerThoughts()
-    {
-        this.parseFeed(document.config['shower_thoughts']['feed'], 'entry')
-            .then(items => {
-                let content = ``;
-                items.forEach((item, index) => {
-                    if((index+1) <= document.config['shower_thoughts']['items_per_feed']) {
-                        let title = item.querySelector('title');
-                        let link = item.querySelector('link');
-                        let thought = `
-                            <li>
-                                <a href="${link.getAttribute('href')}">${title.textContent}</a>
-                            </li>
-                        `;
-                        content += thought;
-                    }
-                })
-
-                this.redditTitle.innerText = 'Shower Thoughts';
-                this.redditList.innerHTML = content;
-                $('.bbb').jScrollPane();
-            })
-            .catch(err => console.log(err))
-    }
-
-    parseFeed(feedUrl, queryTag)
-    {
-        return new Promise(resolve => {
-            let url = feedUrl;
-            if(typeof document.config['proxy_server'] !== 'undefined') {
-                if(document.config['proxy_server'] !== "") {
-                    url = document.config['proxy_server'] + feedUrl;
-                }
-            }
-            fetch(url)
-                .then(res => res.text())
-                .then(str => {
-                    let parser = new DOMParser();
-                    let feed = parser.parseFromString(str, 'application/xml')
-                    let items = feed.querySelectorAll(queryTag);
-                    resolve(items)
-                })
-                .catch(err => console.log(err))
-        })
-    }
-
     loadImage(url)
     {
         return new Promise(resolve => {
@@ -181,4 +133,4 @@ export class Page {
 
 }
 
-export default Page;
+export default Main;

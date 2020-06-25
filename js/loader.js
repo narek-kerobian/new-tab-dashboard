@@ -1,5 +1,5 @@
 import config from "../config.js";
-import Page from "./modules/page.js";
+import Main from "./modules/main.js";
 import Locale from "./i18n/locale.js";
 
 let locale = new Locale();
@@ -8,7 +8,7 @@ locale.getLocale(config['locale'])
         document.config = config;
         document.locale = loc;
 
-        let page = new Page();
-        page.Init();
+        let main = new Main();
+        main.Init();
     })
     .catch(err => console.log(err))

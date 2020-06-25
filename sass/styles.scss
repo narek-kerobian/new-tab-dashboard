@@ -20,6 +20,7 @@ body {
   .right-col {
     .content-data {
       margin-top: 25px;
+      width: 100%;
       height: 100%;
       overflow: hidden;
     }
@@ -158,9 +159,6 @@ body {
     align-items: flex-end;
     height: calc(100vh - 80px);
     text-align: right;
-    .content-data {
-      padding-right: 15px;
-    }
     .date {
       width: 100%;
       line-height: normal;
@@ -176,19 +174,23 @@ body {
     .reddit {
       float: right;
       width: 70%;
+      height: 100%;
       h3 {
         a {
           color: $color_text;
         }
       }
-      ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        li {
-          margin-bottom: 15px;
-          a {
-            color: $color_text;
+      .feed-list {
+        height: calc(100% - 50px);
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          li {
+            margin-bottom: 15px;
+            a {
+              color: $color_text;
+            }
           }
         }
       }

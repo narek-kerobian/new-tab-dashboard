@@ -1,4 +1,5 @@
-import Parser from './parser.js';
+import Parser from '../functional/parser.js';
+import initScroll from "../functional/scroll.js";
 
 export class Feed {
 
@@ -19,7 +20,7 @@ export class Feed {
         this._controlNewsFeedContainer = document.querySelector('.news-feed');
         this._controlNewsFeedSelector = this._controlNewsFeedContainer.querySelector('.feed-selector');
         this._controlNewsFeedList = this._controlNewsFeedContainer.querySelector('.feed-list ul');
-        this._controlScrollElement = $('.feed-list');
+        this._controlScrollElement = $('.news-feed .scrollbar-left');
     }
 
     Init()
@@ -49,12 +50,7 @@ export class Feed {
                 if(items.length > 0) {
                     this._controlNewsFeedList.innerHTML = "";
 
-                    if(this._dataItemsPerFeed) {
-                        console.log('Hi')
-                    }
-
                     for (let i = 0; i < items.length; i++) {
-
                         if(this._dataItemsPerFeed) {
                             if((i + 1) > this._dataItemsPerFeed) {
                                 break;
@@ -78,7 +74,7 @@ export class Feed {
                         `;
                         this._controlNewsFeedList.appendChild(feedItem)
                     }
-                    this._initScroll();
+                    initScroll(this._controlScrollElement);
                 }
             })
     }
@@ -88,19 +84,6 @@ export class Feed {
         this._controlNewsFeedSelector.addEventListener('change', e => {
             this._readFeeds(this._controlNewsFeedSelector.value);
         })   
-    }
-
-    _initScroll()
-    {
-        // Check if jScrollPane is attached
-        let scrollData = this._controlScrollElement.data('jsp');
-        if(typeof scrollData !== 'undefined') {
-            scrollData.reinitialise();
-        } else {
-            this._controlScrollElement = this._controlScrollElement.jScrollPane({
-                autoReinitialise: true
-            });
-        }
     }
 
 }
