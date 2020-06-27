@@ -1,6 +1,5 @@
 export default {
     "locale": "en",
-    "proxy_server": "",
 	"open_weather_map": {
         "api_key": "",
         "city_id": ""
