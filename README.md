@@ -30,7 +30,7 @@ A simple chrome extension aimed to make the new tab screen less dull by adding n
 }</code></pre> 
 If you want to limit the number of articles change the value of "items_per_feed" to any number.  
 You can add as many feeds as you like, use dropdown menu to change the source.
-5. As a workaround to CORS problem, use "proxy_server" config option to specify a server like: https://cors-anywhere.herokuapp.com/
+5. To avoid CORS issues make sure to add your feeds to the "permissions" section in manifest.json file. Matching pattern examples can be found [here](https://developer.chrome.com/extensions/match_patterns).
 6. Modify search engines section to your liking <pre><code>"search_engines": [
    {
        "title": "Google",
@@ -57,6 +57,7 @@ Being a side project the development is not very active. Some future improvement
 #### License
 Everything in this repository is provided "as is", without any warranty.  
 Download, use, modify, redistribute, do whatever you like, no limits!  
+You'll need to consider licences of dependencies as well.  
 Contributions are welcome.
 
 
