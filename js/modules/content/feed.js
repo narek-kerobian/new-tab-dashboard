@@ -19,6 +19,9 @@ export class Feed {
         this._parser = new Parser();
         this._controlNewsFeedContainer = document.querySelector('.news-feed');
         this._controlNewsFeedSelector = this._controlNewsFeedContainer.querySelector('.feed-selector');
+        this._controlNewsFeedButton = this._controlNewsFeedSelector.querySelector('.dropdown-toggle');
+        this._controlNewsFeedMenu = this._controlNewsFeedSelector.querySelector('.dropdown-menu');
+
         this._controlNewsFeedList = this._controlNewsFeedContainer.querySelector('.feed-list ul');
         this._controlScrollElement = $('.news-feed .scrollbar-left');
     }
@@ -28,23 +31,26 @@ export class Feed {
         this._dataItemsPerFeed = document.config['rss_feed']['items_per_feed'];
         this._dataFeeds = document.config['rss_feed']['feeds'];
         this._setFeedSelectors();
-        this._eventFeedSelector();
         this._readFeeds(0);
     }
 
     _setFeedSelectors()
     {
         this._dataFeeds.forEach((feed, index) => {
-            let option = document.createElement('option');
-            option.value = index;
-            option.innerHTML = feed['title'];
-            this._controlNewsFeedSelector.appendChild(option);
+            let source = document.createElement('a');
+            source.href = '#';
+            source.dataset.value = index;
+            source.classList.add('dropdown-item');
+            source.innerHTML = feed['title'];
+            this._controlNewsFeedMenu.appendChild(source);
+            this._eventFeedSelector(source);
         })
     }
 
     _readFeeds(feedIndex)
     {
         let feedSelected = this._dataFeeds[feedIndex];
+        this._controlNewsFeedButton.innerText = feedSelected['title'];
         this._parser.ParseFeed(feedSelected['feed'], 'item')
             .then(items => {
                 if(items.length > 0) {
@@ -79,10 +85,11 @@ export class Feed {
             })
     }
 
-    _eventFeedSelector()
+    _eventFeedSelector(element)
     {
-        this._controlNewsFeedSelector.addEventListener('change', e => {
-            this._readFeeds(this._controlNewsFeedSelector.value);
+        element.addEventListener('click', e => {
+            e.preventDefault();
+            this._readFeeds(element.dataset.value);
         })   
     }
 

@@ -1,5 +1,6 @@
 @import 'fonts';
 @import 'variables';
+@import "common";
 
 body {
   width: 100vw;
@@ -67,10 +68,6 @@ body {
         outline: none;
         font-size: 28px;
         color: $color_white;
-        option {
-          font-size: 16px;
-          color: #000;
-        }
       }
       .feed-list {
         height: calc(100% - 60px);

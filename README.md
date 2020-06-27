@@ -1,6 +1,6 @@
-#### Custom dashboard for google chrome
+#### Custom new tab dashboard
 ![Screenshot](screenshot.png?raw=true)
-A simple chrome extension aimed to make the new tab screen less dull by adding nice backgrounds and providing some headlines from various RSS feeds of your choice.  
+A simple browser extension aimed to make the new tab screen less dull by adding nice backgrounds and providing some headlines from various RSS feeds of your choice.  
 
 #### Configuration
 1. Copy and rename the config.js.dist to config.js
@@ -46,10 +46,15 @@ You can add as many feeds as you like, use dropdown menu to change the source.
    }
 ]</code></pre>
 
-#### Installation
+#### Installation on chrome (or equivalent)
 1. Go to chrome://extensions/ (or equivalent)
 2. Enable "Developer mode"
 3. Click "Load unpacked" and select the project directory 
+
+#### Installation on firefox
+1. Go to about:debugging
+2. Click on "This Firefox" tab 
+3. Click "Load Temporary Add-on..." and select the manifest.json file from projects directory
 
 #### Development
 Being a side project the development is not very active. Some future improvements are planned for the code, mainly better structure (logic separation), integration with WebPack, responsive design, ability to choose the content position from the config file, etc.  
@@ -61,4 +66,4 @@ You'll need to consider licences of dependencies as well.
 Contributions are welcome.
 
 
-The extension has been tested on google chrome (83.0.4103.106) and brave (V1.10.90) browsers.
+The extension has been tested on google chrome (83.0.4103.106), brave (V1.10.90) and firefox (77.0.1) browsers.

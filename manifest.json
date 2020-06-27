@@ -2,7 +2,6 @@
     "name": "Dashboard",
     "description": "Personal Dashboard",
     "version": "0.1",
-    "incognito": "split",
     "chrome_url_overrides": {
       "newtab": "index.html"
     },
