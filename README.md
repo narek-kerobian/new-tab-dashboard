@@ -4,16 +4,24 @@ A simple browser extension aimed to make the new tab screen less dull by adding 
 
 #### Configuration
 1. Copy and rename the config.js.dist to config.js
-2. Set open weather map key and location id <pre><code>"open_weather_map": {
+2. Set open weather map key and location id 
+```json
+"open_weather_map": {
     "api_key": "",
     "city_id": ""
-}</code></pre>
+}
+```
 3. Add comma separated keywords for unsplash config.  
-  If "update_daily" is set to true, the background will be updated once per day (duh) <pre><code>"unsplash": {
+  If "update_daily" is set to true, the background will be updated once per day (duh) 
+```json
+"unsplash": {
     "update_daily": true,
     "keywords": [""]
-}</code></pre>
-4. Add feed sources to the "rss_feed" section as shown below: <pre><code>"rss_feed": {
+}
+```
+4. Add feed sources to the "rss_feed" section as shown below: 
+```json
+"rss_feed": {
     "items_per_feed": null,
     "feeds": [
         {
@@ -27,11 +35,14 @@ A simple browser extension aimed to make the new tab screen less dull by adding 
             "feed": "feed_url"
         }
     ]
-}</code></pre> 
+}
+``` 
 If you want to limit the number of articles change the value of "items_per_feed" to any number.  
 You can add as many feeds as you like, use dropdown menu to change the source.
 5. To avoid CORS issues make sure to add your feeds to the "permissions" section in manifest.json file. Matching pattern examples can be found [here](https://developer.chrome.com/extensions/match_patterns).
-6. Modify search engines section to your liking <pre><code>"search_engines": [
+6. Modify search engines section to your liking 
+```json
+"search_engines": [
    {
        "title": "Google",
        "font_awesome_icon": "fa-google",
@@ -44,7 +55,8 @@ You can add as many feeds as you like, use dropdown menu to change the source.
        "icon_url": "https://duckduckgo.com/assets/logo_header.v108.svg",
        "search_url": "https://duckduckgo.com/?q="
    }
-]</code></pre>
+]
+```
 
 #### Installation on chrome (or equivalent)
 1. Go to chrome://extensions/ (or equivalent)
@@ -63,7 +75,6 @@ Being a side project the development is not very active. Some future improvement
 Everything in this repository is provided "as is", without any warranty.  
 Download, use, modify, redistribute, do whatever you like, no limits!  
 You'll need to consider licences of dependencies as well.  
-Contributions are welcome.
-
+Code contributions are welcome.
 
 The extension has been tested on google chrome (83.0.4103.106), brave (V1.10.90) and firefox (77.0.1) browsers.

@@ -17,7 +17,8 @@
       "https://www.reddit.com/*",
       "https://opensource.com/feed",
       "https://news.am/eng/rss/",
-      "https://www.upwork.com/*"
+      "https://www.upwork.com/*",
+      "https://itsfoss.com/feed/"
     ],
     "manifest_version": 2
   }
